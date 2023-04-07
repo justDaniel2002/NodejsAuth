@@ -7,11 +7,9 @@ const { validateParam, validateBody, schemas} = require('../helper/routeHelpers'
 
 const passport = require('passport')
 
-const passportConfig = require('../middlewares/passport')
-
 router.post('/signup',validateBody(schemas.authSignUpSchema), authentication.signUp)
 
-router.post('/signin',validateBody(schemas.authSignInSchema),authentication.signIn)
+router.post('/signin',validateBody(schemas.authSignInSchema),passport.authenticate('local',{ session: false}),authentication.signIn)
 
 router.route('/secret')
     .get(passport.authenticate('jwt',{ session: false}),authentication.secret)

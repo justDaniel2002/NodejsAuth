@@ -3,9 +3,10 @@ const User = require("../models/User");
 const encodeToken = require('../configs/index').encodeToken
 
 const signIn = async (req, res, next) => {
-    const newUser = new User(req.body)
-    await newUser.save()
-        .then((user) => res.status(200).json({user}))
+    const user = req.user
+    const token = encodeToken(user._id)
+    res.setHeader('Authorization', token)
+    return res.status(200).json({user})
 }
 
 const signUp = async (req, res, next) => {
@@ -19,8 +20,8 @@ const signUp = async (req, res, next) => {
 }
 
 const secret = async (req, res, next) => {
-    const body = req.body
-    return res.status(200).json({body})
+    const user = req.user
+    return res.status(200).json({user})
 }
 
 module.exports = {

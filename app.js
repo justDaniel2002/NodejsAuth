@@ -17,6 +17,8 @@ const helmet = require("helmet");
 
 const configs = require('./configs')
 
+const passportConfig = require('./middlewares/passport')
+
 //connect to MongoDB by mongoose
 
 mongoose
