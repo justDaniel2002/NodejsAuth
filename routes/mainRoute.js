@@ -7,6 +7,8 @@ const { validateParam, validateBody, schemas} = require('../helper/routeHelpers'
 
 const passport = require('passport')
 
+router.route('/auth/google').post(passport.authenticate('google-token',{session: false}),authentication.authGoogle)
+
 router.post('/signup',validateBody(schemas.authSignUpSchema), authentication.signUp)
 
 router.post('/signin',validateBody(schemas.authSignInSchema),passport.authenticate('local',{ session: false}),authentication.signIn)

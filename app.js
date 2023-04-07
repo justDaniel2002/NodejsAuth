@@ -19,6 +19,18 @@ const configs = require('./configs')
 
 const passportConfig = require('./middlewares/passport')
 
+const session = require('express-session')
+
+//set session 
+
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+
 //connect to MongoDB by mongoose
 
 mongoose
