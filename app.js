@@ -1,3 +1,6 @@
+//config environment
+require('dotenv').config()
+
 const express = require("express");
 
 const logger = require("morgan");
@@ -12,9 +15,7 @@ const bodyParser = require("body-parser");
 
 const helmet = require("helmet");
 
-//config environment
-
-require('dotenv').config()
+const configs = require('./configs')
 
 //connect to MongoDB by mongoose
 

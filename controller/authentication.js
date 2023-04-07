@@ -19,7 +19,8 @@ const signUp = async (req, res, next) => {
 }
 
 const secret = async (req, res, next) => {
-
+    const body = req.body
+    return res.status(200).json({body})
 }
 
 module.exports = {

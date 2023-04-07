@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema
 
+const bcrypt = require('bcryptjs');
+
 const UserSchema = new Schema({
     firstName:{
         type: String,
@@ -25,6 +27,22 @@ const UserSchema = new Schema({
             ref: 'Deck'
         }
     ]
+})
+
+UserSchema.pre('save', async function(next){
+    try {
+        //generate a salt
+        console.log('password: ' + this.password)
+        const salt = await bcrypt.genSalt(10)
+        //generate a password hash(salt + hash)
+        const passwordHashed = await bcrypt.hash(this.password, salt)
+        // re-assign password hashed
+        this.password = passwordHashed
+        console.log('passwordhashed: ' + this.password)
+    } catch (error) {
+        next(error);
+    }
+    
 })
 
 const User = mongoose.model('User', UserSchema)
